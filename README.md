@@ -1,19 +1,28 @@
 # Prometheus → Telegraf → Kafka Pipeline
 
-This project simulates a metrics pipeline where custom Python metrics are exposed to Prometheus, processed by Telegraf, and forwarded to Kafka.
+This project simulates a **metrics pipeline** where custom Python metrics are exposed to **Prometheus**, processed by **Telegraf**, forwarded into **Kafka**, and also stored in **InfluxDB** using Prometheus `remote_write`.  
+With **Chronograf**, you can visualize and explore the metrics in a user-friendly UI.
+
 
 ## 🚀 Architecture
 
-```
-Python Exporter → Prometheus → Telegraf → Kafka
-```
+<img width="1180" height="462" alt="image" src="https://github.com/user-attachments/assets/d801a12f-929d-46ce-8a33-6638699612cd" />
+
 
 ### Flow Description
 
-- **Python Exporter** — Generates synthetic metrics and exposes them on an HTTP endpoint
-- **Prometheus** — Scrapes the metrics from the exporter using the config in `prometheus.yml`
-- **Telegraf** — Collects metrics from Prometheus and forwards them to Kafka
-- **Kafka** — Receives the metrics stream for analytics, monitoring, or logging
+ - Python Exporter — Generates synthetic metrics and exposes them on an HTTP endpoint
+
+ - Prometheus — Scrapes the metrics from the exporter using the config in prometheus.yml
+
+ - Telegraf — Collects metrics from Prometheus and forwards them to Kafka
+
+ - Kafka — Receives the metrics stream for analytics, monitoring, or logging
+
+ - InfluxDB — Stores Prometheus metrics using the remote_write feature
+
+ - Chronograf — Visualizes and queries metrics stored in InfluxDB
+   
 
 ## 📂 Project Structure
 
@@ -50,6 +59,7 @@ docker-compose up --build -d
 - **Prometheus UI** → http://localhost:9090
 - **Exporter Metrics** → http://localhost:8000/metrics
 - **Prometheus Targets** → Navigate to Status → Targets in the Prometheus UI
+- **Chronograf UI** → http://localhost:8888
 
 ### 4. Consume Metrics from Kafka
 
